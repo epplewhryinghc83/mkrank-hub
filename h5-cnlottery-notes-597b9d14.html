@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>中彩网 · 信息导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f9fc;
+            color: #1e2b3c;
+            line-height: 1.6;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 780px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 30px rgba(20, 70, 90, 0.08);
+            padding: 1.6rem 1.2rem 2.4rem;
+            transition: all 0.2s;
+        }
+
+        /* header / hero */
+        .hero {
+            background: linear-gradient(145deg, #d9eedf 0%, #b3d9d0 100%);
+            border-radius: 24px;
+            padding: 1.8rem 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.6), 0 6px 12px rgba(50, 110, 110, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #103d4a;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero .tagline {
+            font-size: 1rem;
+            color: #1f5a64;
+            background: rgba(255, 255, 250, 0.5);
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            margin-top: 0.2rem;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.6rem 0;
+        }
+
+        .card {
+            background: #f9fdfe;
+            border: 1px solid #d1e4e9;
+            border-radius: 20px;
+            padding: 1.2rem 1rem;
+            transition: transform 0.2s, box-shadow 0.25s;
+            box-shadow: 0 4px 8px rgba(30, 70, 80, 0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(40, 110, 120, 0.08);
+            border-color: #9ac7cc;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            display: inline-block;
+            background: #c7e2de;
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            border-radius: 14px;
+            margin-bottom: 0.5rem;
+            color: #094d4d;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #10434f;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #2c4f59;
+            opacity: 0.85;
+        }
+
+        .card-full {
+            grid-column: span 2;
+            background: #ecf6f4;
+            border-color: #b5d0d3;
+            padding: 1rem 1.2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.8rem;
+        }
+
+        .card-full p {
+            flex: 2 1 240px;
+            font-size: 0.95rem;
+        }
+
+        .card-full .link-sentence {
+            flex: 1 1 140px;
+            text-align: right;
+        }
+
+        /* 具体链接样式 */
+        a.main-link {
+            color: #076b6b;
+            background: #e3f2ed;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-block;
+            border: 1px solid #b0d3cf;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        a.main-link:hover {
+            background: #cbe3de;
+            border-color: #599b98;
+        }
+
+        /* 人群 / 场景 列表 */
+        .audience-section {
+            background: #f0f8f7;
+            border-radius: 20px;
+            padding: 1.2rem 1.1rem;
+            margin: 1.8rem 0 1.4rem;
+        }
+
+        .audience-section h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #073f48;
+            border-left: 6px solid #379e9b;
+            padding-left: 0.7rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1rem;
+        }
+
+        .audience-tags span {
+            background: white;
+            padding: 0.25rem 0.8rem 0.25rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #175a61;
+            border: 1px solid #c0dbd8;
+            position: relative;
+        }
+
+        .audience-tags span::before {
+            content: "·";
+            position: absolute;
+            left: 10px;
+            color: #2b8f8c;
+            font-weight: bold;
+        }
+
+        .faq-mini {
+            background: #ffffff;
+            border-left: 3px solid #89bfbb;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            color: #0d4c53;
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+
+        .faq-mini p {
+            color: #2d5b60;
+            font-size: 0.9rem;
+            padding-left: 0.8rem;
+            margin: 0.2rem 0 0.6rem;
+        }
+
+        .footer-note {
+            margin-top: 1.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6f8e92;
+            border-top: 1px dashed #bdd3d1;
+            padding-top: 1.2rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 540px) {
+            .page {
+                padding: 1rem 0.8rem 1.8rem;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .card-full {
+                grid-column: span 1;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .card-full .link-sentence {
+                text-align: left;
+                width: 100%;
+            }
+            .audience-tags span {
+                padding: 0.2rem 0.6rem 0.2rem 1.3rem;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .page {
+                padding: 2rem 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- hero 主视觉 -->
+    <div class="hero">
+        <h1>中彩网</h1>
+        <div class="tagline">信息 · 文化 · 日常</div>
+        <p style="margin-top: 0.8rem; font-size: 0.95rem; color: #194d56; max-width: 400px; margin-left: auto; margin-right: auto;">
+            从关键词出发，发现一个开放的信息空间
+        </p>
+    </div>
+
+    <!-- 用途卡片 (信息卡片式) -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">📰</div>
+            <h3>实时资讯</h3>
+            <p>获取相关动态与内容更新，保持对主题趋势的感知。</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧭</div>
+            <h3>分类索引</h3>
+            <p>按类别浏览不同板块，快速定位感兴趣的信息区域。</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>数据参考</h3>
+            <p>提供公开的统计与历史资料，方便读者自行判断。</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>社区氛围</h3>
+            <p>用户分享观点与经验，形成理性、多元的讨论圈。</p>
+        </div>
+        <!-- 全宽卡片：嵌入自然链接 -->
+        <div class="card card-full">
+            <p>如果你对相关内容感兴趣，可以前往 <a href="https://h5-cnlottery.com" class="main-link">中彩网官网首页</a> 浏览更多信息。</p>
+            <div class="link-sentence">
+                <span style="color:#1b6c6c; font-size:0.85rem;">→ 直达信息页面</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 适合人群 (特点 / 用户) -->
+    <div class="audience-section">
+        <h2>适合哪些人</h2>
+        <div class="audience-tags">
+            <span>信息爱好者</span>
+            <span>数据查阅者</span>
+            <span>休闲浏览者</span>
+            <span>文化观察者</span>
+            <span>日常阅读者</span>
+            <span>理性分析者</span>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.92rem; color: #20565e;">
+            不论你是想了解某个领域的公开背景，还是希望在闲暇时翻阅一些分类内容，<br>
+            这里都提供了一套清晰的信息组织方式，供你参考。
+        </p>
+    </div>
+
+    <!-- 场景 / 提示 混合 (类似 FAQ 摘要) -->
+    <div class="faq-mini">
+        <details>
+            <summary>这个页面提供什么类型的服务？</summary>
+            <p>它是一个信息汇集与导航页面，围绕分类内容提供索引与简介。你可以通过链接跳转到具体页面。</p>
+        </details>
+        <details>
+            <summary>如何快速找到感兴趣的内容？</summary>
+            <p>建议先浏览卡片分类，再使用页面内的索引或搜索功能（若有）。信息结构以清晰为原则。</p>
+        </details>
+        <details>
+            <summary>内容是否实时更新？</summary>
+            <p>平台会定期维护与更新公开内容，具体时效以各页面标注为准。</p>
+        </details>
+        <p style="margin-top: 0.8rem; font-size: 0.85rem; color: #3b7373;">如果你有更多疑问，可以前往主站查找帮助说明。</p>
+    </div>
+
+    <!-- 自然链接段落 (第二次出现链接，符合要求) -->
+    <div style="background: #f1faf8; border-radius: 18px; padding: 1rem 1.1rem; margin: 1.2rem 0;">
+        <p style="font-size: 0.95rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.4rem;">
+            <span>信息入口：</span>
+            <a href="https://h5-cnlottery.com" class="main-link" style="background: transparent; border: none; padding: 0.1rem 0.2rem; color: #1a6d6d; text-decoration: underline 1px dotted #56a09b;">中彩网官网首页</a>
+            <span>— 直接访问主站，获取更完整的内容列表。</span>
+        </p>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <span>基于公开信息整理 · 仅供个人参考</span>
+    </div>
+</div>
+</body>
+</html>
